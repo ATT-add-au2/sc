@@ -11,9 +11,9 @@ public class RiceRuleFormula extends BinFormulae {
 
     
     public int calcNumOfBins() {
-
-        return (int) (2 * Math.pow(getData().size(), 1 / 3.));
-
+        int result = (int) (2 * Math.pow(getData().size(), 1 / 3.));
+        setNumberOfBins(result);
+        return result;
     }
     
 }

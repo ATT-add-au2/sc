@@ -10,8 +10,6 @@ import java.util.Arrays;
 import binmethod.*;
 import statutils.*;
 
-import org.apache.commons.math3.fitting.*;
-
 public class Unit_test_statutils {
 
     public static void main(String[] args) {
@@ -27,15 +25,7 @@ public class Unit_test_statutils {
         exampleData.stream();
 
         //calculate Median
-        double s = 0.;
-        Collections.sort(exampleData);
-        int size = exampleData.size();
-        if (size % 2 != 1) {
-            s = (exampleData.get(size / 2 - 1) + exampleData.get(size / 2) + 0.) / 2;
-        } else {
-            s = exampleData.get((size - 1) / 2);
-        }
-        System.out.println("Median： " + s);
+        System.out.println("Median： " + mm.getMedian());
 
 
         //calculate Variance and Standard Deviation
@@ -46,30 +36,25 @@ public class Unit_test_statutils {
         SturgesFormula sturgesinstance = new SturgesFormula(exampleData);
         sturgesinstance.calcNumOfBins();
 
-        double width = (Collections.max(exampleData) - Collections.min(exampleData)) / sturgesinstance.getNumberOfBins();
+        double width = (mm.max() - mm.min()) / sturgesinstance.getNumberOfBins();
         System.out.println("Width： " + width);
  
         List<Double> copy = exampleData;
 
         Collections.sort(copy);
 
-        int eleNum = 1;
         int i, j;
+        int eleNum = mm.getTypeOfEle();
         j = 0;
 
-        for (i = 1; i < size; i++) {
-            if ((copy.get(i) - copy.get(i - 1)) != 0) {
-                eleNum++;
-            }
-        }
-        System.out.println("Quntity: " + eleNum);
+        System.out.println("Quntity: " + mm.getTypeOfEle());
         //统计数组内每种元素的数量
         //b1统计了各个元素
         double[] b1 = new double[eleNum];
         double[] b2 = new double[eleNum];
         //把b2全部赋值成全一，不这么做，后面计算出各个元素的数量会全部少一个，因为数组从零开始
         //这个逻辑也很好理解，因为每个出现的元素，最少数量是1，不可能出现0的情况
-        for (int inib2 = 0; inib2 < eleNum; inib2++) {
+        for (int inib2 = 0; inib2 < mm.getTypeOfEle(); inib2++) {
             b2[inib2] = 1;
         }
         for (int qi = 1; qi < copy.size(); qi++) {

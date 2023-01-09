@@ -33,12 +33,12 @@ public class Scatter {
 
     //return the variance of exampleData
     public double variance() {
-        return getVarianceNumerator() / exampleData.size();
+        return getVarianceNumerator() / (exampleData.size() - 1);
     }
 
     //return the standard deviation of exampleData
     public double standardDeviation() {
-        return Math.pow((getVarianceNumerator() / exampleData.size()), 0.5);
+        return Math.pow((getVarianceNumerator() / (exampleData.size() - 1)), 0.5);
     }
 
 }

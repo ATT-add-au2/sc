@@ -1,4 +1,4 @@
-package unit_test_statutils;
+package statutils;
 
 import statutils.MaxandMinCalculator;
 import statutils.MeanCalculator;
@@ -13,14 +13,18 @@ public class Statutils {
     private final SumCalculator sumCalculator;
     private final MeanCalculator meanCalculator;
     private final Scatter scatter;
-    private final MaxandMinCalculator extremumCalculator;
+    private final MaxandMinCalculator maxandMinCalculator;
+    private final NormalisedFreqCalculator normalisedFreqCalculator;
+    private final MedianCalculator medianCalculator;
 
     public Statutils(List<Double> exampleData) {
         this.exampleData = exampleData;
         sumCalculator = new SumCalculator(exampleData);
         meanCalculator = new MeanCalculator(sumCalculator.sum());
         scatter = new Scatter(meanCalculator.mean(exampleData.size()), exampleData);
-        extremumCalculator = new MaxandMinCalculator(exampleData);
+        maxandMinCalculator = new MaxandMinCalculator(exampleData);
+        normalisedFreqCalculator = new NormalisedFreqCalculator(exampleData);
+        medianCalculator = new MedianCalculator(exampleData);
     }
 
     public Double mean() {
@@ -39,12 +43,30 @@ public class Statutils {
         return scatter.standardDeviation();
     }
 
-    public Double max() {
-        return extremumCalculator.max();
-    }
+    public Double max() { return maxandMinCalculator.max(); }
 
     public Double min() {
-        return extremumCalculator.min();
+        return maxandMinCalculator.min();
+    }
+
+    public int getTypeOfEle() {
+        return normalisedFreqCalculator.getTypeOfEle();
+    }
+
+    public double[] getEleTypeCollect() {
+        return normalisedFreqCalculator.getEleTypeCollect();
+    }
+
+    public double[] getEleNumCollect() {
+        return normalisedFreqCalculator.getEleNumCollect();
+    }
+
+    public double[] getNormalisedFreq() {
+        return normalisedFreqCalculator.getNormalisedFreq();
+    }
+
+    public double getMedian() {
+        return medianCalculator.getMedian();
     }
 
 }
